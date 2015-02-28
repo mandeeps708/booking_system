@@ -57,14 +57,17 @@ WSGI_APPLICATION = 'bookingsystem.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
+"""
+Enter the database name, your mysql username and password
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bookingsystem', #please enter your mysql username and password
-	'USER': 'mysql username',
-	'PASSWORD': 'mysql pwd',
-	'HOST': 'localhost' ,
-	'PORT': '',
+        'NAME': 'bookingsystem',
+    	'USER': 'root',
+    	'PASSWORD':'1234',
+    	'HOST': 'localhost' ,
+    	'PORT': '',
     }
 }
 
@@ -81,17 +84,27 @@ USE_L10N = True
 
 USE_TZ = True
 
+"""
+This will automatically redirect to the login_url if the user is not logged in, it is called when using @login_required
+"""
+LOGIN_URL = 'accounts/login/'
+# LOGIN_REDIRECT_URL = '/'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
 
-#Template_location
+
+# Templates Location
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(BASE_DIR), "static", "templates"),
 )
 
+"""
+Paths of the static, media and static_only files in the static folder
+"""
 if DEBUG:
     MEDIA_URL = '/media/'
     STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "static-only")
