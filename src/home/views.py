@@ -43,7 +43,7 @@ This view will list the booking made by loggedin user such that the user can sen
 """
 @login_required
 def cancel(request):
-		can = Booking.objects.filter(status = 1)
+		can = Booking.objects.filter(status=1)
 		return render(request, "home/cancel.html", {'cancel': can})
 
 

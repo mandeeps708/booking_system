@@ -14,6 +14,7 @@ class Booking(models.Model):
 	email = models.EmailField('Email', max_length=30)
 	event_name = models.CharField(max_length=30)
 	status = models.BooleanField(default=False)
+	# cancel = models.BooleanField(default=False)
 	
 	class Meta:
     		unique_together = ('hall', 'date', 'start_time', 'end_time',)
