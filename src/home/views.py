@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 
 from .forms import BookingForm
-from .models import Booking
+# from .models import Booking
 
 """
 This will open the home page if the user is already loggedin otherwise it will rediect to the login page.

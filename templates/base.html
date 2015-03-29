@@ -24,7 +24,7 @@
 		display: block;
 		margin: 10px 0 0 0;
 		}*/
-		select ,.vDateField, #id_start_time, #id_end_time, #id_event_name, #id_name, #id_email {
+		select ,.vDateField, #id_start_time, #id_no_of_hours, #id_event_name, #id_name, #id_email {
 			width: 200px;
 		}
 		.overflow {
@@ -54,49 +54,31 @@
 		</span>
 		<span class="booksys">Booking System</span>
 	</nav>
-    <div class="container">
+
 <!--
 
  /container 
 
 -->
-	{% block content %}
 
-	{% endblock %}
+    <div class="container">
+		{% block content %}
+
+		{% endblock %}
 
 	</div>
 
 	<script src="{% static 'bootstrap.min.js' %}"></script>
 	<script src="{% static 'js/jquery-1.10.2.js' %}"></script>
 	<script src="{% static 'js/jquery-ui.js' %}"></script>
-	<script src="{% static 'js/jquery.timepicker.min.js' %}"></script>
 
 	<script type=text/javascript>
-		$(function() {
-			$( "#id_date" ).datepicker({
-				changeMonth: true, //this option for allowing user to select month
-				changeYear:  true, //this option for allowing user to select from year range
-	            dateFormat: 'yy-mm-dd'
-			});
-		});
-
-
-	    $(function() {
-			$( "#id_hall" ).selectmenu()
-			.selectmenu( "menuWidget" )
-			.addClass( "overflow" );
-			});
-
-		// $(function() {
-		// 	$('#id_start_time').timepicker({ 'forceRoundTime': true }).removeClass( "overflow")
-		// });
-
+	
 		$(function() {
 		$( document ).tooltip();
 		});
+	
 	</script>
 	
 </body>
 </html>
-
-

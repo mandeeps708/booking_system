@@ -1,7 +1,7 @@
 /*Yet to try background colours: #80B781    Chrome showing yellow background color due to the gradient.*/
 
 .bg{
-   background-image: linear-gradient(to bottom, #DADADA 768px, rgb(237, 195, 12) 100%);
+   background-image: linear-gradient(to bottom, #DADADA 768px, #CFCFCF);
 }
 
 .block-home {

@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 # Templates Location
 TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(BASE_DIR), "static", "templates"),
+    os.path.join(os.path.dirname(BASE_DIR), "templates"),
 )
 
 
@@ -84,6 +84,10 @@ This will automatically redirect to the login_url if the user is not logged in, 
 LOGIN_URL = 'accounts/login/'
 # LOGIN_REDIRECT_URL = '/'
 
+"""
+This is used to specify the time format in H:M and H:M AM/PM.
+"""
+TIME_INPUT_FORMATS = ['%H:%M', '%I:%M%p', '%I:%M %p']
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -98,22 +102,19 @@ USE_L10N = True
 
 USE_TZ = True
 
+MEDIA_ROOT = ''
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
+MEDIA_URL = ''
+
+STATIC_ROOT = ''
 
 STATIC_URL = '/static/'
 
-"""
-Paths of the static, media and static_only files in the static folder
-"""
-if DEBUG:
-    MEDIA_URL = '/media/'
-    STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "static-only")
-    MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "media")
-    STATICFILES_DIRS = (
-        os.path.join(os.path.dirname(BASE_DIR), "static", "static"),
-    )
+STATICFILES_DIRS = (
+        os.path.join(os.path.dirname(BASE_DIR), "static"),
+)
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
