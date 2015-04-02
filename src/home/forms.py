@@ -2,7 +2,6 @@ from django.core.exceptions import ValidationError
 from django.contrib.admin import widgets
 from django import forms
 from .models import Booking
-from home.time_choices import TIME_CHOICES
 import datetime
 
 class BookingForm(forms.ModelForm):
@@ -10,7 +9,7 @@ class BookingForm(forms.ModelForm):
 	class Meta:
 		model = Booking 
 		fields = ["hall", "date", "start_time", "no_of_hours", "event_name", "name", "email"]
-	
+
 	# With the help of the AdminDateWidget, a calender for the date input can be used.
 	date = forms.DateField(widget=widgets.AdminDateWidget)
 	

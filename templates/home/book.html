@@ -2,9 +2,9 @@
 {% block title %}Book Hall{% endblock %}
 {% load staticfiles %}
 {% block extrastyle %}
-	<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui.css">
-    <script src="{{ STATIC_URL }}js/jquery-ui.js"></script>
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui.css" type="text/css">
     <script src="{{ STATIC_URL }}js/jquery-1.10.2.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery-ui.js"></script>
 
     <script type=text/javascript>
 		$(function() {
@@ -15,12 +15,23 @@
 			});
 		});
 
-
 	    $(function() {
 			$( "#id_hall" ).selectmenu()
 			.selectmenu( "menuWidget" )
 			.addClass( "overflow" );
 			});
+
+
+		$(function() {
+			$( "#id_start_time" ).timepicker({
+				'minTime': '8:00am',
+				'maxTime': '5:00pm',
+				'timeFormat': 'h:i A',
+				'showPeriodLabels': false,
+	            'showNowButton': true
+			});
+		});
+
 	</script>
 	
 {% endblock %}
