@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 
 from .forms import BookingForm
-# from .models import Booking
+from .models import Booking
 
 """
 This will open the home page if the user is already loggedin otherwise it will rediect to the login page.
@@ -19,14 +19,15 @@ View for 'click to book' page. If there is no errors in the form then it will be
 """
 @login_required
 def book(request):
-	form = BookingForm(request.POST or None)
-
-	if form.is_valid():
-		save_it = form.save(commit=False)
-		save_it.save()
-		return render(request, "home/thanks.html", {})
-	context = {"form": form}
-	return render(request, "home/book.html", context)
+	if request.method == 'POST':
+		form = BookingForm(request.POST)
+		if form.is_valid():
+			save_it = form.save(commit=False)
+			save_it.save()
+			return render(request, "home/thanks.html", {})
+	else:
+		form = BookingForm()
+	return render(request, "home/book.html", {"form": form})
 
 """ 
 This view is linked with the "View bookings" page and it will return only those bookings whose status is true 

@@ -1,4 +1,5 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
+# from home.time_choices import TIME_CHOICES
 from django.db import models
 import datetime
 

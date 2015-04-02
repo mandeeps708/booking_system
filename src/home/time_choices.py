@@ -2,7 +2,6 @@
 This is used to define the time choices from 9AM to 5PM and the user 
 will select only one option and this will be used as a choice field 
 in BookingForm.
-
 """
 TIME_CHOICES = (
     ("09:00" , "9:00 AM"), 
