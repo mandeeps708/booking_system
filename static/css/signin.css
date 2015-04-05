@@ -1,0 +1,43 @@
+body{
+	background-color: #DADADA;
+}
+
+.centralize{
+	margin: 20% 30% auto 30%;
+}
+.table{
+	margin: 10px 0 0 10px;
+}
+
+
+ .round-button{
+    background-color: rgba(125, 204, 193, 0.78);
+    border-radius: 3.5em;
+    color: #FFF;
+    cursor: pointer;
+    display: inline-block;
+    height: 3.5em;
+    line-height: 3.5em;
+    outline: 0px none;
+    padding: 0px 2em;
+    position: inherit;
+    text-align: center;
+    text-decoration: none;
+    -moz-appearance: none;
+    border-style: none;
+    /*transition: all 0.2s ease-in-out 0s;*/
+    transition: all 0.3s cubic-bezier(0,3.44,1,-1.23) 0s;
+}
+
+
+.round-button:hover{
+    background-color: #63B357;
+    color: #FFF;
+    text-align: center;
+    position: inherit;
+    text-decoration: none;
+}
+
+.error{
+		text-align: center;
+	}
