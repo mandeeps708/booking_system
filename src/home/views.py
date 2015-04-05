@@ -29,6 +29,7 @@ def book(request):
 	else:
 		form = BookingForm()
 	return render(request, "home/book.html", {"form": form})
+	# alternative of context, locals()
 
 
 """ 
