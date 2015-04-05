@@ -7,10 +7,7 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 
 	<link href="{% static 'css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
-	<link href="{% static 'css/bootstrap-theme.min.css' %}" type="text/css" rel="stylesheet">
-	<!-- <link href="{% static 'css/login.css' %}" type="text/css" rel="stylesheet"> -->
-	<script src="{% static 'js/jquery-1.10.2.js' %}"></script>
-	<script src="{% static 'js/script.js' %}"></script>
+	<link href="{% static 'css/signin.css' %}" type="text/css" rel="stylesheet">
 </head>
 
 <body>
@@ -24,7 +21,7 @@
 			<form id="login" action="{% url 'django.contrib.auth.views.login' %}" method="post">
 				{% csrf_token %}
 				<!-- <a href="#" id="flipToRecover" class="flipLink">Welcome</a> -->
-				<table>
+				<table class="table">
 					<tr>
 						<td>{{ form.username.label_tag }}</td>
 						<td>{{ form.username}}</td>
@@ -35,29 +32,11 @@
 					</tr>
 				</table> 
 				
-			<input type="submit" value="Login" class="btn btn-success btn-md">
-			<input type="hidden" name="next" value="{{ next }}">
+				<input type="submit" value="Login" class="round-button">
+				<input type="hidden" name="next" value="{{ next }}">
 			</form>
 		</div>
 	</div>
 	</p>
-
-<!-- 
-
-		<div id="formContainer">
-			<form id="login" method="post" action="./">
-				<a href="#" id="flipToRecover" class="flipLink">Forgot?</a>
-				{{ form.username}}
-				{{ form.password }}
-				<input type="submit" name="submit" value="Login" />
-			</form>
-			<form id="recover" method="post" action="./">
-				<a href="#" id="flipToLogin" class="flipLink">Forgot?</a>
-				<input type="text" name="recoverEmail" id="recoverEmail" value="Email" />
-				<input type="submit" name="submit" value="Recover" />
-			</form>
-		</div>
-
- -->
 </body>
 </html>
