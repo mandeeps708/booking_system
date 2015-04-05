@@ -21,6 +21,7 @@ View for 'click to book' page. If there is no errors in the form then it will be
 def book(request):
 	if request.method == 'POST':
 		form = BookingForm(request.POST)
+
 		if form.is_valid():
 			save_it = form.save(commit=False)
 			save_it.save()
@@ -28,6 +29,7 @@ def book(request):
 	else:
 		form = BookingForm()
 	return render(request, "home/book.html", {"form": form})
+
 
 """ 
 This view is linked with the "View bookings" page and it will return only those bookings whose status is true 

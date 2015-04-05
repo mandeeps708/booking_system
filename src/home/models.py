@@ -1,5 +1,4 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
-# from home.time_choices import TIME_CHOICES
 from django.db import models
 import datetime
 
@@ -12,7 +11,7 @@ class Booking(models.Model):
 	hall = models.ForeignKey('Hall')
 	date = models.DateField(auto_now=False, auto_now_add=False)
 	start_time = models.TimeField(auto_now=False, auto_now_add=False)
-	no_of_hours = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(3)])
+	duration = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(3)])
 	name = models.CharField(max_length=30)
 	email = models.EmailField('Email', max_length=30)
 	event_name = models.CharField(max_length=30)

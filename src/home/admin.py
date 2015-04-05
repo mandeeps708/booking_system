@@ -4,7 +4,7 @@ from .models import Booking, Hall
 # Register your models here.
 
 class BookingAdmin(admin.ModelAdmin):
-	list_display = ['hall', 'event_name', 'name', 'date', 'start_time', 'no_of_hours', 'email', 'status' ]
+	list_display = ['hall', 'event_name', 'name', 'date', 'start_time', 'duration', 'email', 'status' ]
 	class Meta:
 		model = Booking
 
