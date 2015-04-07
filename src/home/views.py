@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 
 from .forms import BookingForm
 from .models import Booking
+from django.core.mail import EmailMessage
 
 """
 This will open the home page if the user is already loggedin otherwise it will rediect to the login page.
@@ -13,7 +14,6 @@ This will open the home page if the user is already loggedin otherwise it will r
 def home(request):
 		return render(request, "home/home.html", {})
 
-
 """
 View for 'click to book' page. If there is no errors in the form then it will be saved and a thanks page will be displayed.
 """
@@ -21,10 +21,14 @@ View for 'click to book' page. If there is no errors in the form then it will be
 def book(request):
 	if request.method == 'POST':
 		form = BookingForm(request.POST)
-
+		email = request.POST['email']
+		name = request.POST['name']
+		print email
 		if form.is_valid():
 			save_it = form.save(commit=False)
 			save_it.save()
+			user_email = EmailMessage('Booking System', 'Hi ' + name + ', Thanks for booking :)', to=[email])
+			user_email.send()
 			return render(request, "home/thanks.html", {})
 	else:
 		form = BookingForm()
