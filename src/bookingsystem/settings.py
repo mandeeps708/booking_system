@@ -120,3 +120,22 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
+
+#For email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = True
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+#replace your email within the quotes below.
+EMAIL_HOST_USER = 'bookingsystemtcc@gmail.com'
+
+"""Must generate specific password for your app in [gmail settings] after activating 
+2-step verfication."""
+EMAIL_HOST_PASSWORD = 'Enter the Google App Password'
+
+EMAIL_PORT = 587
+
+#This did the trick
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
