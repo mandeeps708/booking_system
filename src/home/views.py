@@ -21,14 +21,14 @@ View for 'click to book' page. If there is no errors in the form then it will be
 def book(request):
 	if request.method == 'POST':
 		form = BookingForm(request.POST)
-		email = request.POST['email']
 		name = request.POST['name']
+		email = request.user.email
 		print email
 		if form.is_valid():
 			save_it = form.save(commit=False)
 			save_it.save()
-			user_email = EmailMessage('Booking System', 'Hi ' + name + ', Thanks for booking :)', to=[email])
-			user_email.send()
+			# user_email = EmailMessage('Booking System', 'Hi ' + name + ', Thanks for booking :)', to=[email])
+			# user_email.send()
 			return render(request, "home/thanks.html", {})
 	else:
 		form = BookingForm()

@@ -22,7 +22,7 @@ class Booking(models.Model):
     		unique_together = ('hall', 'date', 'start_time')
 	
 	def __unicode__(self):
-		return self.event_name	
+		return self.email
 
 
 """

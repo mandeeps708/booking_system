@@ -9,7 +9,7 @@ class BookingForm(forms.ModelForm):
 	# This connects the 'Booking' model with this form and shows the specified fields on the html.
 	class Meta:
 		model = Booking 
-		fields = ["hall", "date", "duration", "start_time", "event_name", "name", "email"]
+		fields = ["hall", "date", "duration", "start_time", "event_name", "name"]
 
 	# With the help of the AdminDateWidget, a calender for the date input can be used.
 	# date = forms.DateField(widget=widgets.AdminDateWidget)
