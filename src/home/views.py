@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
-from .forms import BookingForm
+from .forms import BookingForm, ViewBookingsForm
 from .models import Booking
 from django.core.mail import EmailMessage
 from datetime import timedelta
@@ -27,9 +27,7 @@ def book(request):
 		name = request.POST['name']
 		email = request.user.email
 		print email	
-		# email = request.POST['email']
-		# name = request.POST['name']
-		# print email
+
 		if form.is_valid():
 			value = form.save(commit=False)
 			user = User.objects.all()
@@ -50,9 +48,16 @@ This view is linked with the "View bookings" page and it will return only those 
 """
 @login_required
 def view(request):
-		boo = Booking.objects.filter(status =1)
-		return render(request, "home/view.html", {'booking': boo})
-
+	if request.method == 'POST':
+		form = ViewBookingsForm(request.POST)
+		view_hall = request.POST['hall']
+		view_date = request.POST['date']
+		if form.is_valid():
+			boo = Booking.objects.filter(status = 1, hall = view_hall, date = view_date)
+			return render(request, "home/view_booking.html", {"booking": boo})
+	else:
+		form = ViewBookingsForm()
+	return render(request, "home/view.html", {"form": form})
 
 """
 This view will list the booking made by loggedin user such that the user can send a cancellation request to admin for 
