@@ -50,6 +50,10 @@
 			<a href="{% url 'home.views.home' %}" class="btn btn-primary btn-sm back-button" title="Login">Login</a>
 		{% else %}	
 		 -->
+		{% if user.is_staff == True %}
+			<a href="{% url 'admin:index' %}" class="btn btn-primary btn-sm back-button" title="Admin Panel">Admin Panel</a>
+		{% endif %}
+
 		<a href="{% url 'home.views.logout_view' %}" class="btn btn-primary btn-sm back-button" title="Logout">Logout</a>
 		<!-- {% endif %} -->
 		</span>
