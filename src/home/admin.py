@@ -1,10 +1,8 @@
 from django.contrib import admin
 from .models import Booking, Hall
 
-# Register your models here.
-
 class BookingAdmin(admin.ModelAdmin):
-	list_display = ['hall', 'event_name', 'date', 'start_time', 'end_time', 'email', 'status']
+	list_display = ['hall', 'name', 'event_name', 'date', 'start_time', 'end_time', 'email', 'status']
 	class Meta:
 		model = Booking
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 from .forms import BookingForm
@@ -29,10 +30,11 @@ def book(request):
 		# email = request.POST['email']
 		# name = request.POST['name']
 		# print email
-
 		if form.is_valid():
-			save_it = form.save(commit=False)
-			save_it.save()
+			value = form.save(commit=False)
+			user = User.objects.all()
+			value.email = request.user.email
+			value.save()
 			# user_email = EmailMessage('Booking System', 'Hi ' + name + ', Thanks for booking :)', to=[email])
 			# user_email.send()
 			return render(request, "home/thanks.html", {})

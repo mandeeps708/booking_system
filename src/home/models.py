@@ -2,7 +2,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 import datetime
 
-# Create your models here.
+
 """
 It contains the informations of the current booking status of various halls it should have unique hall and date and 
 time values. If the hall is already booked its booking_status will be True, otherwise False.
