@@ -35,8 +35,10 @@ class BookingForm(forms.ModelForm):
 			raise forms.ValidationError("Timings should be valid")
 
 		event_hall = form_data['hall']
-		event_time = Booking.objects.filter(Q(start_time__gte = event_start, end_time__lte = event_end) | \
-			Q(start_time__lte = event_start, end_time__gte = event_end), \
+		event_time = Booking.objects.filter(Q(start_time__range = (event_start, event_end)) | \
+			Q(end_time__range = (event_start, event_end)) | \
+			Q(start_time__lte = event_start, end_time__gte = event_end) | \
+			Q(start_time__gte = event_start, end_time__lte = event_end), \
 			date = event_date, hall = event_hall)
 
 		for t in event_time:
