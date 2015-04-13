@@ -9,9 +9,11 @@
     <script type=text/javascript>
 		$(function() {
 			$( "#id_date" ).datepicker({
-				changeMonth: true, //this option for allowing user to select month
-				changeYear:  true, //this option for allowing user to select from year range
-	            dateFormat: 'yy-mm-dd'
+				// changeMonth: true, //this option for allowing user to select month
+				// changeYear:  true, //this option for allowing user to select from year range
+	            dateFormat: 'yy-mm-dd',
+	            minDate: 0,
+	            maxDate: "+6M"
 			});
 		});
 
@@ -27,7 +29,17 @@
 				'minTime': '8:00am',
 				'maxTime': '5:00pm',
 				'timeFormat': 'h:i A',
-				'step': 60
+				'step': 30
+			});
+		});
+
+
+		$(function() {
+			$( "#id_end_time" ).timepicker({
+				'minTime': '9:00am',
+				'maxTime': '6:00pm',
+				'timeFormat': 'h:i A',
+				'step': 30
 			});
 		});
 
