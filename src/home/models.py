@@ -20,7 +20,7 @@ class Booking(models.Model):
 	# cancel = models.BooleanField(default=False)
 	
 	class Meta:
-    		unique_together = ('hall', 'date', 'start_time')
+    		unique_together = ('hall', 'date', 'start_time', 'event_name')
 	
 	def __unicode__(self):
 		return '%s' % (self.event_name)
@@ -35,4 +35,15 @@ class Hall(models.Model):
 	
 	def __unicode__(self):
 		return '%s' % (self.hall)
-	
+
+"""
+This model stores the feedback from the anonymous user and stores it in the database.
+"""
+class Feedback(models.Model):
+	name = models.CharField(max_length=30)
+	email = models.EmailField('Email', max_length=30)
+	contact = models.IntegerField()
+	feedback = models.TextField()
+
+	def __unicode__(self):
+		return '%s' % (self.name)

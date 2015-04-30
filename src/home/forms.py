@@ -59,3 +59,6 @@ class ViewBookingsForm(forms.ModelForm):
 	class Meta:
 		model = Booking
 		fields = ['hall', 'date']
+
+class CancelBookingForm(forms.Form):
+	cancel = forms.ChoiceField(widget=forms.RadioSelect())

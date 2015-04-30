@@ -1,20 +1,55 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login, logout
+from django.template import RequestContext
 
-from .forms import BookingForm, ViewBookingsForm
-from .models import Booking
+from .forms import BookingForm, ViewBookingsForm, CancelBookingForm
+from .models import Booking, Feedback
 from django.core.mail import EmailMessage
 from datetime import timedelta
+import datetime
+
+"""
+This view is used for logging in the user. It will be show login page if the user is not logged in, otherwise it 
+will redirect the user to the home page.
+"""
+def login_view(request):
+	state = "Please log in below..."
+	username = password = ''
+	if request.POST:
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect('/')
+		else:
+			state = "Your username and/or password were incorrect."
+	else:
+		state = ""
+	return render_to_response('registration/login.html', locals(), context_instance=RequestContext(request))
+
+
+"""
+The Logout button calls this view and it will return back to the default login page.
+"""
+def logout_view(request):
+	from django.contrib.auth.views import logout
+	logout(request)
+	return HttpResponseRedirect(reverse("home.views.home"))
+	# return render(request, "registration/logout.html")
 
 """
 This will open the home page if the user is already loggedin otherwise it will rediect to the login page.
 """
 @login_required
 def home(request):
-		return render(request, "home/home.html", {})
+	return render(request, "home/home.html", {})
 
 """
 View for 'click to book' page. If there is no errors in the form then it will be saved and a thanks page will be 
@@ -65,15 +100,30 @@ the event selected by user.
 """
 @login_required
 def cancel(request):
-		can = Booking.objects.filter(status=1)
-		return render(request, "home/cancel.html", {'cancel': can})
+	email = request.user.email
+	# can = Booking.objects.filter(status=1, email=email, date__gt = datetime.date.today())
+	can = Booking.objects.filter(status=1, email=email)
+	return render(request, "home/cancel.html", {'cancel': can})
+	# if request.method == 'POST':
+	# 	form = CancelBookingForm(request.POST)
+	# 	eventname = request.POST.get('cancel')
+	# 	if form.is_valid():
+	# 		can = Booking.objects.filter(status = 1, email = email, event_name = eventname).delete()
+	# 		return render(request, "home/home.html", {"cancelling": can})
+	# else:
+	# 	form = CancelBookingForm()
+	# return render(request, "home/cancel.html", {"form": form, "cancelling": can})
 
 
-"""
-The Logout button calls this view and it will return back to the default login page.
-"""
-def logout_view(request):
-		from django.contrib.auth.views import logout
- 		logout(request)
-		return HttpResponseRedirect(reverse("home.views.home"))
-		# return render(request, "registration/logout.html")
+def feedback(request):
+	feed_name = feed_email = feed_contact = feed_note = ""
+	if request.POST:
+		feed_name = request.POST.get('name')
+		feed_email = request.POST.get('email')
+		feed_contact = request.POST.get('mob')
+		feed_note = request.POST.get('feed')
+		
+		return HttpResponseRedirect('/feedback')
+	else:
+		feed_state = ""
+	return render_to_response('home/feedback.html', locals(), context_instance=RequestContext(request))

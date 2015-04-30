@@ -2,41 +2,192 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<title>Login page</title>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 
-	<link href="{% static 'css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
-	<link href="{% static 'css/signin.css' %}" type="text/css" rel="stylesheet">
+<head>
+    <title>Booking System</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet">
+    
+    <!-- Popup CSS -->
+    <link href="{% static 'css/popup.css' %}" rel="stylesheet">
+
+    <!-- Feedback CSS -->
+    <link href="{% static 'css/feedback.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/sweetalert.css' %}">    -->
 </head>
 
 <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a  href="" id="loginLink">Login</a>
+                    </li>
+                    <li>
+                        <a href="" id="feedbackLink">Feedback</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 
-	<p>
-	<div>
-		{% if form.errors %}
-			<p class="error">Your username and password didn't match. Please try again.</p>
-		{% endif %}
-		<div class="centralize">
-			<form id="login" action="{% url 'django.contrib.auth.views.login' %}" method="post">
-				{% csrf_token %}
-				<!-- <a href="#" id="flipToRecover" class="flipLink">Welcome</a> -->
-				<table class="table">
-					<tr>
-						<td>{{ form.username.label_tag }}</td>
-						<td>{{ form.username}}</td>
-					</tr>
-					<tr>
-						<td>{{ form.password.label_tag }}</td>
-						<td>{{ form.password }}</td>
-					</tr>
-				</table> 
-				
-				<input type="submit" value="Login" class="round-button">
-				<input type="hidden" name="next" value="{{ next }}">
-			</form>
-		</div>
-	</div>
-	</p>
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1 class="brand-heading">Booking System</h1>
+                       
+                        <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>About Booking System</h2>
+                <p>The project is used for booking seminar halls for a particular institution or any kind of organization. The major purpose for this project is to automate the procedure of booking the seminar halls for meetings or any other events. Various seminar halls within our institute like MBA, TCC, Workshop, Auditorium and TNP hall will be booked using this project.</p>
+                <p>The user sends a booking request which would be accepted by admin such that the user will be notified via email when the booking is done. The user can also view the bookings, cancel or reschedule the bookings also.</p>
+            </div>
+        </div>
+    </section>
+
+    <div id="error" style="color:black">{{ state }}</div>
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; GNDEC 2015</p>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    
+    <!-- Popup JavaScript -->
+    <script src="{% static 'js/popup.js' %}"></script>
+    <script src="{% static 'js/feedback.js' %}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{% static 'js/main.js' %}"></script>
+    
+    <!-- Jquery-UI-->
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    
+    <!-- Login Validate-->
+    <script src="{% static 'js/loginval.js' %}"></script>
+    
+    <!-- Feedback Validate -->
+    <script src="{% static 'js/feedbackval.js' %}"></script>
+
+    <!-- Login error message window -->
+    <script src="{% static 'js/login-error.js' %}"></script>
+    
+    <!-- // <script src="{% static 'js/sweetalert.min.js' %}"></script> -->
+
+    
+    <!-- Login window -->
+    <div class="overlay" style="display: none;">
+        <div class="login-wrapper">
+            <div class="login-content">
+                <a class="lclose">x</a>
+                <h3>Sign in</h3>
+                
+                <div><span id="lerror"></span></div>                
+                <form method="post" action="/login/" name="loginfrm" id="login">
+                    {% csrf_token %}
+                    <label for="username">
+                        Username:
+                        <input type="text" name="username" id="username" value="" onBlur="return checkusername()" />
+                    </label>
+                    <label for="password">
+                        Password:
+                        <input type="password" name="password" id="password" value="" onBlur="return checkpass()"/>
+                    </label>
+                    <br>
+                    <button type="submit" name="lbtn" id="lbtn" onClick="return login()">Sign in</button>
+                    <button type="reset" value="reset">Reset</button>
+                    <input type="hidden" name="next" value="{{ next }}">
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Feedback Window -->
+    <div class="wrapper" style="display: none;">
+        <div class="feedback-wrapper">
+            <div class="feedback-content">
+                <a class="fclose">x</a>
+                <h3>Feedback</h3>
+                <div><span id="ferror"></span></div>
+                <form method="post" action="/feedback/" name="popfrm">
+                	{% csrf_token %}
+                    <label for="name">
+                        Name:
+                        <input type="text" name="name" id="name" value="" onBlur="return checkname()"/>
+                    </label>
+                    <label for="email">
+                        Email:
+                        <input type="text" name="email" id="email" value="" onBlur="return checkemail()"/>
+                    </label>
+                    <label for="contact">
+                        Contact:
+                        <input type="text" name="mob" id="mob" value="" onBlur="return checkmob()"/>
+                    </label>
+                    <label for="feedback">
+                        Feedback:
+                        <input type="text" name="feed" id="feed" value="" onBlur="return checkfeed()">
+                    </label>
+                    <button type="submit" name="fbtn" id="fbtn" onClick="return feedback()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Displays error message if wrong user credentials are entered -->
+    <div class="erroroverlay" style="display: none;">
+        <div class="error-wrapper">
+            <div class="error-content">
+                <a class="eclose">x</a>
+                <h3>WRONG USERNAME OR PASSWORD. <br> PLEASE SIGNIN WITH CORRECT CREDENTIALS. </h3>
+            </div>
+        </div>
+    </div>
+     
+
 </body>
 </html>

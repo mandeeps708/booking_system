@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block title %}List of Bookings{% endblock %}
 {% block content %}
-	<div class="content">
-		<h1>Current Bookings</h1>
+	<div class="block-book container" style="background-color: transparent;">
+		<h1>Current Bookings</h1><br><br>
 	 	<div>
-			<table border="5">
+			<table border="2">
 			 	<tr>
 			 		<th>Sr.</th>
 			 		<th>Event Name</th>
@@ -15,8 +15,8 @@
 			 		<th>Start Time</th>
 			 		<th>End Time</th>
 			 	</tr> 
+		 		{% for value in booking %}
 			 	<tr>
-		 	{% for value in booking %}
 			 		<td>{{ forloop.counter }}</td>
 			 		<td>{{ value }}</td> 
 			 		<td>{{ value.name }}</td>
@@ -26,7 +26,7 @@
 			 		<td>{{ value.start_time }}</td>
 			 		<td>{{ value.end_time }}</td>
 				</tr>
-			{% endfor %}
+				{% endfor %}
 			</table>
 	 	</div>
 	 </div>
