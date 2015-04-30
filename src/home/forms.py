@@ -25,8 +25,8 @@ class BookingForm(forms.ModelForm):
 		form_data = self.cleaned_data
 		event_date = form_data['date']
 
-		if event_date < datetime.date.today():
-			raise forms.ValidationError("Invalid Date")
+		# if event_date < datetime.date.today():
+		# 	raise forms.ValidationError("Invalid Date")
 
 		event_start = form_data['start_time']
 		event_end = form_data['end_time']
@@ -47,7 +47,7 @@ class BookingForm(forms.ModelForm):
 
 		for t in event_time:
 			if t is not None:
-				raise forms.ValidationError("Invalid Time")
+				raise forms.ValidationError("Hall Already Booked")
 
 		return form_data
 

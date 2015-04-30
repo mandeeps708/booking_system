@@ -20,7 +20,7 @@ class Booking(models.Model):
 	# cancel = models.BooleanField(default=False)
 	
 	class Meta:
-    		unique_together = ('hall', 'date', 'start_time', 'event_name')
+    		unique_together = ('hall', 'date', 'start_time',)
 	
 	def __unicode__(self):
 		return '%s' % (self.event_name)
