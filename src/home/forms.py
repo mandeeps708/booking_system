@@ -26,25 +26,36 @@ class BookingForm(forms.ModelForm):
 	def clean(self):
 		form_data = self.cleaned_data
 		event_date = form_data['date']
+		event_hall = form_data['hall']
 		event_start = form_data['start_time']
 		event_end = form_data['end_time']
 	
 		time_now = datetime.datetime.now().strftime('%H:%M:00')
-		
+		date_today = datetime.date.today()
+
 		# print event_start.isoformat()
 		# print time_now
+		# print event_date
+		# print date_today
 
 		# print type(event_start.isoformat())
 		# print type(time_now)
+		# print type(event_date)
+		# print type(date_today)
 
 		# FMP = '%H:%M %p'
 		# duration = datetime.datetime.strptime(event_end, FMP) - datetime.datetime.strptime(event_start, FMP)
 		# event_end = (event_start + timedelta(hours = event_hours)).strftime('%H:%M %p')
 
-		if ((event_start >= event_end) or (event_start.isoformat() <= time_now) or (event_end.isoformat() <= time_now)):
+		# For checking if the start_time is less than end_time, valid timings
+		if (event_start >= event_end):
 			raise forms.ValidationError("Invalid Timings")
 
-		event_hall = form_data['hall']
+		# For checking event booking date and timings such that no past booking can be done
+		if (event_date == date_today and (event_start.isoformat() <= time_now or event_end.isoformat() <= time_now)):
+			raise forms.ValidationError("Invalid Timings")
+
+
 		event_time = Booking.objects.filter(Q(start_time__range = (event_start, event_end)) | \
 			Q(end_time__range = (event_start, event_end)) | \
 			Q(start_time__lte = event_start, end_time__gte = event_end) | \
