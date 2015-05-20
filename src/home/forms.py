@@ -5,6 +5,7 @@ from .models import Booking
 from datetime import timedelta
 import datetime
 
+
 """
 This form is used for booking the hall for an event by registered users and the request will be sent to the admin only
 if the timing slot is available for booking.
@@ -15,6 +16,7 @@ class BookingForm(forms.ModelForm):
 		model = Booking 
 		exclude = ['status', 'email']
 
+
 	"""
 	If the input date is not valid then it will show a validation message.
 	The form will also raise a validation error if the start time or the end time of the event is between the timings 
@@ -24,19 +26,23 @@ class BookingForm(forms.ModelForm):
 	def clean(self):
 		form_data = self.cleaned_data
 		event_date = form_data['date']
-
-		# if event_date < datetime.date.today():
-		# 	raise forms.ValidationError("Invalid Date")
-
 		event_start = form_data['start_time']
 		event_end = form_data['end_time']
+	
+		time_now = datetime.datetime.now().strftime('%H:%M:00')
 		
+		# print event_start.isoformat()
+		# print time_now
+
+		# print type(event_start.isoformat())
+		# print type(time_now)
+
 		# FMP = '%H:%M %p'
 		# duration = datetime.datetime.strptime(event_end, FMP) - datetime.datetime.strptime(event_start, FMP)
 		# event_end = (event_start + timedelta(hours = event_hours)).strftime('%H:%M %p')
 
-		if event_start >= event_end:
-			raise forms.ValidationError("Timings should be valid")
+		if ((event_start >= event_end) or (event_start.isoformat() <= time_now) or (event_end.isoformat() <= time_now)):
+			raise forms.ValidationError("Invalid Timings")
 
 		event_hall = form_data['hall']
 		event_time = Booking.objects.filter(Q(start_time__range = (event_start, event_end)) | \
@@ -59,6 +65,3 @@ class ViewBookingsForm(forms.ModelForm):
 	class Meta:
 		model = Booking
 		fields = ['hall', 'date']
-
-class CancelBookingForm(forms.Form):
-	cancel = forms.ChoiceField(widget=forms.RadioSelect())

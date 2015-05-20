@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 
-from .forms import BookingForm, ViewBookingsForm, CancelBookingForm
+from .forms import BookingForm, ViewBookingsForm
 from .models import Booking, Feedback
 from django.core.mail import EmailMessage
 from datetime import timedelta
@@ -123,7 +123,8 @@ def cancelbooking(request):
 		return HttpResponseRedirect('/cancel/')
 	else:
 		cancel_state = "Event not cancelled"
-		can = Booking.objects.filter(status=1, email=email, date__gt = datetime.date.today())
+		can = Booking.objects.filter(status=1, email=email, date__gt = datetime.date.today(), start_time__gte = \
+			datetime.datetime.now().strftime('%I:%M %p'))
 	return render_to_response('home/cancel.html', locals(), context_instance=RequestContext(request))
 
 

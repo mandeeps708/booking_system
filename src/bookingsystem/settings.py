@@ -81,7 +81,7 @@ DATABASES = {
 """
 This will automatically redirect to the login_url if the user is not logged in, it is called when using @login_required
 """
-LOGIN_URL = 'login/'
+LOGIN_URL = '/login/'
 # LOGIN_REDIRECT_URL = '/'
 
 """
