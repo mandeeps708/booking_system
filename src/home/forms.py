@@ -51,7 +51,9 @@ class BookingForm(forms.ModelForm):
 		if (event_start >= event_end):
 			raise forms.ValidationError("Invalid Timings")
 
-		# For checking event booking date and timings such that no past booking can be done
+		# For checking event booking date and timings such that no past booking can be done such that for today's date 
+		# and the start_time as well as end_time should be greater than current time whereas the isoformat is used for 
+		# converting the time to the string and comparing the value with the form time values
 		if (event_date == date_today and (event_start.isoformat() <= time_now or event_end.isoformat() <= time_now)):
 			raise forms.ValidationError("Invalid Timings")
 
