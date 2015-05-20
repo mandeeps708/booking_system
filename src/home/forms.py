@@ -55,7 +55,7 @@ class BookingForm(forms.ModelForm):
 		# and the start_time as well as end_time should be greater than current time whereas the isoformat is used for 
 		# converting the time to the string and comparing the value with the form time values
 		if (event_date == date_today and (event_start.isoformat() <= time_now or event_end.isoformat() <= time_now)):
-			raise forms.ValidationError("Invalid Timings")
+			raise forms.ValidationError("Please fill future timings")
 
 
 		event_time = Booking.objects.filter(Q(start_time__range = (event_start, event_end)) | \
