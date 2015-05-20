@@ -42,7 +42,7 @@ This model stores the feedback from the anonymous user and stores it in the data
 class Feedback(models.Model):
 	name = models.CharField(max_length=30)
 	email = models.EmailField('Email', max_length=30)
-	contact = models.IntegerField()
+	contact = models.CharField(max_length=10)
 	feedback = models.TextField()
 
 	def __unicode__(self):

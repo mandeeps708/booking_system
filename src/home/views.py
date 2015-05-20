@@ -12,6 +12,7 @@ from django.core.mail import EmailMessage
 from datetime import timedelta
 import datetime
 
+
 """
 This view is used for logging in the user. It will be show login page if the user is not logged in, otherwise it 
 will redirect the user to the home page.
@@ -44,12 +45,14 @@ def logout_view(request):
 	return HttpResponseRedirect(reverse("home.views.home"))
 	# return render(request, "registration/logout.html")
 
+
 """
 This will open the home page if the user is already loggedin otherwise it will rediect to the login page.
 """
 @login_required
 def home(request):
 	return render(request, "home/home.html", {})
+
 
 """
 View for 'click to book' page. If there is no errors in the form then it will be saved and a thanks page will be 
@@ -94,6 +97,7 @@ def view(request):
 		form = ViewBookingsForm()
 	return render(request, "home/view.html", {"form": form})
 
+
 """
 This view will list the booking made by loggedin user such that the user can send a cancellation request to admin for 
 the event selected by user.
@@ -101,21 +105,33 @@ the event selected by user.
 @login_required
 def cancel(request):
 	email = request.user.email
-	# can = Booking.objects.filter(status=1, email=email, date__gt = datetime.date.today())
-	can = Booking.objects.filter(status=1, email=email)
+	can = Booking.objects.filter(status=1, email=email, date__gt = datetime.date.today())
 	return render(request, "home/cancel.html", {'cancel': can})
-	# if request.method == 'POST':
-	# 	form = CancelBookingForm(request.POST)
-	# 	eventname = request.POST.get('cancel')
-	# 	if form.is_valid():
-	# 		can = Booking.objects.filter(status = 1, email = email, event_name = eventname).delete()
-	# 		return render(request, "home/home.html", {"cancelling": can})
-	# else:
-	# 	form = CancelBookingForm()
-	# return render(request, "home/cancel.html", {"form": form, "cancelling": can})
 
 
+"""
+Used for cancelling the event using radio button and the user will cancel the event
+"""
+@login_required
+def cancelbooking(request):
+	cancel_state = "Event cancelled"
+	event = ''
+	if request.POST:
+		event = request.POST.get('cancel')
+		cancel = Booking.objects.filter(event_name = event).delete()
+		# can = Booking.objects.filter(status=1, email=email, date__gt = datetime.date.today())
+		return HttpResponseRedirect('/cancel/')
+	else:
+		cancel_state = "Event not cancelled"
+		can = Booking.objects.filter(status=1, email=email, date__gt = datetime.date.today())
+	return render_to_response('home/cancel.html', locals(), context_instance=RequestContext(request))
+
+
+"""
+This function is used to store the feedback from any user to the database.
+"""
 def feedback(request):
+	feed_state = "Feedback given"
 	feed_name = feed_email = feed_contact = feed_note = ""
 	if request.POST:
 		feed_name = request.POST.get('name')
@@ -123,7 +139,9 @@ def feedback(request):
 		feed_contact = request.POST.get('mob')
 		feed_note = request.POST.get('feed')
 		
-		return HttpResponseRedirect('/feedback')
+		review = Feedback(name = feed_name, email = feed_email, contact = feed_contact, feedback = feed_note)
+		review.save()
+		return render(request, "home/feedback.html", {})
 	else:
-		feed_state = ""
-	return render_to_response('home/feedback.html', locals(), context_instance=RequestContext(request))
+		feed_state = "Please enter valid details"
+	return render_to_response('registration/login.html', locals(), context_instance=RequestContext(request))

@@ -16,7 +16,7 @@ class HallAdmin(admin.ModelAdmin):
 admin.site.register(Hall, HallAdmin)
 
 class FeedbackAdmin(admin.ModelAdmin):
-	list_display = ['name', 'email', 'feedback']
+	list_display = ['name', 'email', 'feedback', 'contact']
 	class Meta:
 		model = Feedback
 
