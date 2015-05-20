@@ -104,8 +104,8 @@ the event selected by user.
 """
 @login_required
 def cancel(request):
-	email = request.user.email
-	can = Booking.objects.filter(status=1, email=email, date__gt = datetime.date.today())
+	can = Booking.objects.filter(status=1, email=request.user.email, date__gte = datetime.date.today(), \
+		start_time__gte = datetime.datetime.now().strftime('%I:%M %p'))
 	return render(request, "home/cancel.html", {'cancel': can})
 
 
@@ -118,13 +118,13 @@ def cancelbooking(request):
 	event = ''
 	if request.POST:
 		event = request.POST.get('cancel')
-		cancel = Booking.objects.filter(event_name = event).delete()
+		cancel = Booking.objects.filter(id = event).delete()
 		# can = Booking.objects.filter(status=1, email=email, date__gt = datetime.date.today())
 		return HttpResponseRedirect('/cancel/')
 	else:
 		cancel_state = "Event not cancelled"
-		can = Booking.objects.filter(status=1, email=email, date__gt = datetime.date.today(), start_time__gte = \
-			datetime.datetime.now().strftime('%I:%M %p'))
+		can = Booking.objects.filter(status=1, email=request.user.email, date__gte = datetime.date.today(), \
+			start_time__gte = datetime.datetime.now().strftime('%I:%M %p'))
 	return render_to_response('home/cancel.html', locals(), context_instance=RequestContext(request))
 
 

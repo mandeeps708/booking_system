@@ -19,7 +19,7 @@
 				 	</tr>
 				 	{% for value in cancel %}
 				 	<tr>
-				 		<td> <input type="radio" name="cancel" id="cancel{{ forloop.counter }}" value="{{ value }}" /></td>
+				 		<td> <input type="radio" name="cancel" id="cancel{{ forloop.counter }}" value="{{ value.id }}" /></td>
 				 		<td>{{ value }}</td> 
 				 		<td>{{ value.name }}</td>
 				 		<td>{{ value.hall }}</td>
