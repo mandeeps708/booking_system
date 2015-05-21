@@ -16,7 +16,6 @@ class BookingForm(forms.ModelForm):
 		model = Booking 
 		exclude = ['status', 'email']
 
-
 	"""
 	If the input date is not valid then it will show a validation message.
 	The form will also raise a validation error if the start time or the end time of the event is between the timings 
@@ -24,51 +23,50 @@ class BookingForm(forms.ModelForm):
 	the hall from 9AM to 10AM.
 	"""
 	def clean(self):
-		form_data = self.cleaned_data
-		event_date = form_data['date']
-		event_hall = form_data['hall']
-		event_start = form_data['start_time']
-		event_end = form_data['end_time']
-	
-		time_now = datetime.datetime.now().strftime('%H:%M:00')
-		date_today = datetime.date.today()
+		try:	
+			form_data = self.cleaned_data
+			event_date = form_data['date']
+			event_hall = form_data['hall']
+			event_start = form_data['start_time']
+			event_end = form_data['end_time']
 
-		# print event_start.isoformat()
-		# print time_now
-		# print event_date
-		# print date_today
+			# Getting the current date and time for comparing
+			time_now = datetime.datetime.now().strftime('%H:%M:00')
+			date_today = datetime.date.today()
+ 
+			# FMP = '%H:%M %p'
+			# duration = datetime.datetime.strptime(event_end, FMP) - datetime.datetime.strptime(event_start, FMP)
+			# event_end = (event_start + timedelta(hours = event_hours)).strftime('%H:%M %p')
 
-		# print type(event_start.isoformat())
-		# print type(time_now)
-		# print type(event_date)
-		# print type(date_today)
+			
+			# For checking if the start_time is less than end_time, valid timings
+			if (event_start >= event_end):
+				raise forms.ValidationError("Invalid Timings")
 
-		# FMP = '%H:%M %p'
-		# duration = datetime.datetime.strptime(event_end, FMP) - datetime.datetime.strptime(event_start, FMP)
-		# event_end = (event_start + timedelta(hours = event_hours)).strftime('%H:%M %p')
+			# For checking event booking date and timings such that no past booking can be done such that for today's 
+			# date and the start_time as well as end_time should be greater than current time whereas the isoformat is 
+			# used for converting the time to the string and comparing the value with the form time values
+			if (event_date == date_today and (event_start.isoformat() <= time_now or event_end.isoformat() <= \
+				time_now)):
+				raise forms.ValidationError("Please fill future timings")
 
-		# For checking if the start_time is less than end_time, valid timings
-		if (event_start >= event_end):
-			raise forms.ValidationError("Invalid Timings")
+			# Comparing the form_data with the values in database for checking already booked hall
+			event_time = Booking.objects.filter(Q(start_time__range = (event_start, event_end)) | \
+				Q(end_time__range = (event_start, event_end)) | \
+				Q(start_time__lte = event_start, end_time__gte = event_end) | \
+				Q(start_time__gte = event_start, end_time__lte = event_end), \
+				date = event_date, hall = event_hall)
 
-		# For checking event booking date and timings such that no past booking can be done such that for today's date 
-		# and the start_time as well as end_time should be greater than current time whereas the isoformat is used for 
-		# converting the time to the string and comparing the value with the form time values
-		if (event_date == date_today and (event_start.isoformat() <= time_now or event_end.isoformat() <= time_now)):
-			raise forms.ValidationError("Please fill future timings")
+			for t in event_time:
+				if t is not None:
+					raise forms.ValidationError("Hall Already Booked")
 
+			return form_data
 
-		event_time = Booking.objects.filter(Q(start_time__range = (event_start, event_end)) | \
-			Q(end_time__range = (event_start, event_end)) | \
-			Q(start_time__lte = event_start, end_time__gte = event_end) | \
-			Q(start_time__gte = event_start, end_time__lte = event_end), \
-			date = event_date, hall = event_hall)
+		except KeyError:
+			print ("Please fill the entries")
+		# If the exception is raised for KeyError, then the statement will execute till the required entries are filled
 
-		for t in event_time:
-			if t is not None:
-				raise forms.ValidationError("Hall Already Booked")
-
-		return form_data
 
 """
 This form is used for viewing the future booking in various hall and the user can filter the bookings by selecting the

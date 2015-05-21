@@ -63,8 +63,9 @@ def book(request):
 	if request.method == 'POST':
 		form = BookingForm(request.POST)
 		name = request.POST['name']
+		
 		email = request.user.email
-		print email	
+		# print email	
 
 		if form.is_valid():
 			value = form.save(commit=False)
