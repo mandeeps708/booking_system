@@ -33,7 +33,7 @@ class BookingForm(forms.ModelForm):
 			# Getting the current date and time for comparing
 			time_now = datetime.datetime.now().strftime('%H:%M:00')
 			date_today = datetime.date.today()
- 
+
 			# FMP = '%H:%M %p'
 			# duration = datetime.datetime.strptime(event_end, FMP) - datetime.datetime.strptime(event_start, FMP)
 			# event_end = (event_start + timedelta(hours = event_hours)).strftime('%H:%M %p')

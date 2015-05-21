@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import Q
 from django.template import RequestContext
 
 from .forms import BookingForm, ViewBookingsForm
@@ -105,8 +106,9 @@ the event selected by user.
 """
 @login_required
 def cancel(request):
-	can = Booking.objects.filter(status=1, email=request.user.email, date__gte = datetime.date.today(), \
-		start_time__gte = datetime.datetime.now().strftime('%I:%M %p'))
+	can = Booking.objects.filter(Q(date = datetime.date.today(), start_time__gte = \
+		datetime.datetime.now().strftime('%I:%M %p')) | Q(date__gt = datetime.date.today()), \
+		status=1, email=request.user.email)
 	return render(request, "home/cancel.html", {'cancel': can})
 
 
@@ -124,8 +126,9 @@ def cancelbooking(request):
 		return HttpResponseRedirect('/cancel/')
 	else:
 		cancel_state = "Event not cancelled"
-		can = Booking.objects.filter(status=1, email=request.user.email, date__gte = datetime.date.today(), \
-			start_time__gte = datetime.datetime.now().strftime('%I:%M %p'))
+		can = Booking.objects.filter(Q(date = datetime.date.today(), start_time__gte = \
+		datetime.datetime.now().strftime('%I:%M %p')) | Q(date__gt = datetime.date.today()), \
+		status=1, email=request.user.email)
 	return render_to_response('home/cancel.html', locals(), context_instance=RequestContext(request))
 
 
