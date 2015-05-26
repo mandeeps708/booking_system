@@ -16,7 +16,7 @@ function feedback() {
 		div.style.backgroundRepeat="no-repeat";
 		
 		$(document).ready(function() {
-			   $("form").effect( "shake", {times:2}, 700 );
+			   $("form").effect( "shake", {times:1}, 200 );
 		});
 		error+="Please fill name<br>";
 	}
@@ -32,7 +32,7 @@ function feedback() {
 		div1.style.backgroundRepeat="no-repeat";
 
 		$(document).ready(function() {
-			   $("form").effect( "shake", {times:2}, 700 );
+			   $("form").effect( "shake", {times:1}, 200 );
 		});
 		error+="Please fill email<br>";
 	}
@@ -48,7 +48,7 @@ function feedback() {
 		div2.style.backgroundRepeat="no-repeat";
 
 		$(document).ready(function() {
-			   $("form").effect( "shake", {times:2}, 700 );
+			   $("form").effect( "shake", {times:1}, 200 );
 		});
 		error+="Please fill mobile number<br>";
 	}
@@ -63,7 +63,7 @@ function feedback() {
 		div3.style.backgroundRepeat="no-repeat";
 		
 		$(document).ready(function() {
-			   $("form").effect( "shake", {times:2}, 700 );
+			   $("form").effect( "shake", {times:1}, 200 );
 		});
 		error+="Please fill feedback";
 	}

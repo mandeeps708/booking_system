@@ -15,7 +15,7 @@ function login() {
 		div.style.backgroundRepeat="no-repeat";
 		
 		$(document).ready(function() {
-			   $("form").effect( "shake", {times:2}, 700 );
+			   $("form").effect( "shake", {times:1}, 200 );
 		});
 		error+="Please fill username<br>";
 	}
@@ -31,7 +31,7 @@ function login() {
 		div1.style.backgroundRepeat="no-repeat";
 		
 		$(document).ready(function() {
-			   $("form").effect( "shake", {times:2}, 700 );
+			   $("form").effect( "shake", {times:1}, 200 );
 		});
 		error+="Please fill password";
 	}
