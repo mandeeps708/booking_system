@@ -68,19 +68,22 @@ hall that is sent from booking page and respective hall admin will respond to th
 def staff(request):
 	email = request.user.email
 	hall_staff = Hall.objects.get(hall_admin = email)
-	stf = Booking.objects.filter(hall = hall_staff)
+	stf = Booking.objects.filter(hall = hall_staff).order_by('-date', 'start_time')
 	return render(request, "home/staff.html", {"staff": stf})
 
-"""
 
+"""
+After selecting whether to book event or cancel respective operations will be performed as done by the admin.
 """
 @login_required
 def staffresponse(request):
 	staff_state = "Event booked"
 	event = ''
 	if request.POST:
-		event = request.POST.get('staff')
-		book = Booking.objects.filter(id = event).update(status = 1)
+		event_book = request.POST.get('book')
+		event_cancel = request.POST.get('cancel')
+		book = Booking.objects.filter(id = event_book).update(status = 1)
+		cancel = Booking.objects.filter(id = event_cancel).delete()
 		return HttpResponseRedirect('/staff/')
 	else:
 		cancel_state = "Event not booked"
