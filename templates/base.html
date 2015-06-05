@@ -44,20 +44,17 @@
 -->
 	<nav class="navbar navbar-default navbar-fixed-top">
 	
-		<span id="buttons"><a href="{% url 'home' %}" class="btn btn-primary btn-sm back-button" title="Homepage">Home</a>
-		{% if user.is_staff == True %}
-			<a href="{% url 'admin:index' %}" class="btn btn-primary btn-sm back-button" title="Admin Panel">Admin Panel</a>
-		{% endif %}
-
-		
-		{% if user.is_anonymous %}
-			<a href="{% url 'home.views.home' %}" class="btn btn-primary btn-sm back-button" title="Login">Login</a>
-		{% else %}		
-			<a href="{% url 'home.views.logout_view' %}" class="btn btn-primary btn-sm back-button" title="Logout">Logout</a>
-		{% endif %}
-		
+		<span id="buttons">
+			<a href="{% url 'home' %}" class="btn btn-primary btn-sm back-button" title="Homepage">Home</a>					
+			{% if user.is_anonymous %}
+				<a href="{% url 'home.views.home' %}" class="btn btn-primary btn-sm back-button" title="Login">Login</a>
+			{% else %}		
+				<a href="{% url 'home.views.logout_view' %}" class="btn btn-primary btn-sm back-button" title="Logout">Logout</a>
+			{% endif %}		
 		</span>
+
 		<span class="booksys">Booking System</span>
+
 	</nav>
 
 <!-- 
@@ -67,6 +64,7 @@
  -->
 
     <div class="container">
+	
 		{% block content %}
 
 		{% endblock %}

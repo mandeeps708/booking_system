@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.template import RequestContext
 
 from .forms import BookingForm, ViewBookingsForm
-from .models import Booking, Feedback
+from .models import Booking, Feedback, Hall
 from django.core.mail import EmailMessage
 from datetime import timedelta
 import datetime
@@ -29,7 +29,12 @@ def login_view(request):
 		if user is not None:
 			if user.is_active:
 				login(request, user)
-				return HttpResponseRedirect('/')
+				if user.is_superuser:
+					return HttpResponseRedirect('/admin')
+				elif user.is_staff:
+					return HttpResponseRedirect('/staff/')
+				else:
+					return HttpResponseRedirect('/')
 		else:
 			state = "Your username and/or password were incorrect."
 	else:
@@ -53,6 +58,33 @@ This will open the home page if the user is already loggedin otherwise it will r
 @login_required
 def home(request):
 	return render(request, "home/home.html", {})
+
+
+"""
+This view will contain hall admin related information, such that the hall's admin can accept the booking request of the
+hall that is sent from booking page and respective hall admin will respond to the RequestContext.
+"""
+@login_required
+def staff(request):
+	email = request.user.email
+	hall_staff = Hall.objects.get(hall_admin = email)
+	stf = Booking.objects.filter(hall = hall_staff)
+	return render(request, "home/staff.html", {"staff": stf})
+
+"""
+
+"""
+@login_required
+def staffresponse(request):
+	staff_state = "Event booked"
+	event = ''
+	if request.POST:
+		event = request.POST.get('staff')
+		book = Booking.objects.filter(id = event).update(status = 1)
+		return HttpResponseRedirect('/staff/')
+	else:
+		cancel_state = "Event not booked"
+	return render_to_response('home.views.staff', locals(), context_instance=RequestContext(request))
 
 
 """

@@ -32,6 +32,7 @@ informations.
 class Hall(models.Model):
 	hall = models.CharField(max_length=25, unique=True)
 	seats = models.PositiveSmallIntegerField()
+	hall_admin = models.EmailField(max_length=40)
 	
 	def __unicode__(self):
 		return '%s' % (self.hall)
