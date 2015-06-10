@@ -49,9 +49,9 @@
 
 			<!-- For showing the Admin button or the Hall admin button depending on logged in user -->
 			{% if user.is_superuser %}
-				<a href="/admin" class="btn btn-primary btn-sm back-button" title="Login">Admin Panel</a>
+				<a href="/admin" class="btn btn-primary btn-sm back-button" title="Admin">Admin Panel</a>
 			{% elif user.is_staff %}
-				<a href="{% url 'home.views.staff' %}" class="btn btn-primary btn-sm back-button" title="Login">Hall Admin</a>
+				<a href="{% url 'home.views.staff' %}" class="btn btn-primary btn-sm back-button" title="Staff">Hall Admin</a>
 			{% else %}
 			{% endif %}
 

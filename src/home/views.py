@@ -99,16 +99,19 @@ def book(request):
 	if request.method == 'POST':
 		form = BookingForm(request.POST)
 		name = request.POST['name']
-		
-		email = request.user.email
-		# print email	
+		book_hall = request.POST['hall']
 
 		if form.is_valid():
 			value = form.save(commit=False)
 			user = User.objects.all()
 			value.email = request.user.email
 			value.save()
-			# user_email = EmailMessage('Booking System', 'Hi ' + name + ', Thanks for booking :)', to=[email])
+
+			# Getting hall admin email_id such that the email can be forwarded to the hall_admin.
+			email = Hall.objects.filter(id = book_hall).values('hall_admin')
+
+			# Sending email to the hall_admin containing event info and user email.
+			# user_email = EmailMessage('Booking System', 'Please accept the request for booking', to=[email])
 			# user_email.send()
 			return render(request, "home/thanks.html", {})
 	else:
