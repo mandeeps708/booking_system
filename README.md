@@ -103,9 +103,9 @@ For the installation of Requiremets listed above, run the following commands in 
 0. To see the project working, shoot the following commands:
 >```python manage.py migrate```
 
->```python manage.py makemigrations```
+    >```python manage.py makemigrations```
 
->```python manage.py runserver 7000```
+    >```python manage.py runserver 7000```
        
     Make sure you are in the booking_system/src directory in which the file 'manage.py' exists.
 
