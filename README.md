@@ -100,17 +100,20 @@ For the installation of Requiremets listed above, run the following commands in 
     - In the bottom, set your own email account to EMAIL_HOST_USER and Google App Password to EMAIL_HOST_PASSWORD. You'll be able to generate a Google App password easily after activating 2-step verification in Gmail Account.
     
 
+0. To see the project working, shoot the following commands:
+>```python manage.py migrate```
+
+>```python manage.py makemigrations```
+
+>```python manage.py runserver 7000```
+       
+    Make sure you are in the booking_system/src directory in which the file 'manage.py' exists.
+
 0. Create a superuser for your project:
 >```python manage.py createsuperuser```
 
     Now add Username, email(optional) and password.
 
-0. To see the project working, shoot the following commands:
->```python manage.py migrate```
-
- >```python manage.py runserver 7000```
-       
-    Make sure you are in the booking_system/src directory in which the file 'manage.py' exists.
 
 0. Now open your web browser with the address:
 
