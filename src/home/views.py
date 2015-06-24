@@ -68,7 +68,8 @@ hall that is sent from booking page and respective hall admin will respond to th
 def staff(request):
 	email = request.user.email
 	hall_staff = Hall.objects.get(hall_admin = email)
-	stf = Booking.objects.filter(hall = hall_staff).order_by('-date', 'start_time')
+	stf = Booking.objects.filter(Q(date = datetime.date.today(), start_time__gte = datetime.datetime.now().\
+		strftime('%I:%M %p')) | Q(date__gt = datetime.date.today()), hall = hall_staff).order_by('-date', 'start_time')
 	return render(request, "home/staff.html", {"staff": stf})
 
 
