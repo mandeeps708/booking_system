@@ -105,14 +105,15 @@ For the installation of Requiremets listed above, run the following commands in 
 
     >```python manage.py makemigrations```
 
-    >```python manage.py runserver 7000```
-       
-    Make sure you are in the booking_system/src directory in which the file 'manage.py' exists.
 
 0. Create a superuser for your project:
 >```python manage.py createsuperuser```
 
     Now add Username, email(optional) and password.
+
+
+0. Make sure you are in the booking_system/src directory in which the file 'manage.py' exists.
+>```python manage.py runserver 7000```
 
 
 0. Now open your web browser with the address:
