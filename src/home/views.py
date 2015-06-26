@@ -147,7 +147,8 @@ the event selected by user.
 def cancel(request):
 	can = Booking.objects.filter(Q(date = datetime.date.today(), start_time__gte = \
 		datetime.datetime.now().strftime('%I:%M %p')) | Q(date__gt = datetime.date.today()), \
-		status=1, email=request.user.email)
+		status=1, email=request.user.email).order_by('-date', 'start_time')
+
 	return render(request, "home/cancel.html", {'cancel': can})
 
 
@@ -167,7 +168,8 @@ def cancelbooking(request):
 		cancel_state = "Event not cancelled"
 		can = Booking.objects.filter(Q(date = datetime.date.today(), start_time__gte = \
 		datetime.datetime.now().strftime('%I:%M %p')) | Q(date__gt = datetime.date.today()), \
-		status=1, email=request.user.email)
+		status=1, email=request.user.email).order_by('-date', 'start_time')
+
 	return render_to_response('home/cancel.html', locals(), context_instance=RequestContext(request))
 
 
