@@ -133,7 +133,12 @@ def view(request):
 		view_date = request.POST['date']
 		if form.is_valid():
 			boo = Booking.objects.filter(status = 1, hall = view_hall, date = view_date)
-			return render(request, "home/view_booking.html", {"booking": boo})
+			if not boo:
+				view = False
+			else:
+				view = True
+
+			return render(request, "home/view_booking.html", {"booking": boo, "view": view,})
 	else:
 		form = ViewBookingsForm()
 	return render(request, "home/view.html", {"form": form})
@@ -149,7 +154,12 @@ def cancel(request):
 		strftime('%I:%M %p')) | Q(date__gt = datetime.date.today()), email=request.user.email).\
 	order_by('-date', 'start_time')
 
-	return render(request, "home/cancel.html", {'cancel': can})
+	if not can:
+		view = False
+	else:
+		view = True
+
+	return render(request, "home/cancel.html", {'cancel': can, 'view': view,})
 
 
 """
@@ -166,10 +176,7 @@ def cancelbooking(request):
 		return HttpResponseRedirect('/cancel/')
 	else:
 		cancel_state = "Event not cancelled"
-		can = Booking.objects.filter(Q(date = datetime.date.today(), start_time__gte = datetime.datetime.now().\
-			strftime('%I:%M %p')) | Q(date__gt = datetime.date.today()), email=request.user.email).\
-		order_by('-date', 'start_time')
-
+		
 	return render_to_response('home/cancel.html', locals(), context_instance=RequestContext(request))
 
 
