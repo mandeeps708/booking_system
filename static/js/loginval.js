@@ -17,7 +17,7 @@ function login() {
 		$(document).ready(function() {
 			   $("form").effect( "shake", {times:1}, 150 );
 		});
-		error+="Please fill username<br>";
+		error="Please enter your username and password";
 	}
 
 	// For checking password is filled or not		
@@ -33,7 +33,7 @@ function login() {
 		$(document).ready(function() {
 			   $("form").effect( "shake", {times:1}, 150 );
 		});
-		error+="Please fill password";
+		error="Please enter your username and password";
 	}
 	
 	// Displays the error message if any field left empty

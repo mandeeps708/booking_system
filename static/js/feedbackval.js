@@ -1,84 +1,84 @@
 // Checks if any of the feedback form field is left blank or not
-function feedback() {
-	var n=document.getElementById("name").value;
-	var e=document.getElementById("email").value;
-	var m=document.getElementById("mob").value;
-	var f=document.getElementById("feed").value;
-	var error="";
+// function feedback() {
+// 	var n=document.getElementById("name").value;
+// 	var e=document.getElementById("email").value;
+// 	var m=document.getElementById("mob").value;
+// 	var f=document.getElementById("feed").value;
+// 	var error="";
 	
-	// For checking the name is filled or not
-	if(n=="") {
-		var div=document.getElementById("name");
-		div.style.borderColor="rgb(248,66,66)";
-		div.style.boxShadow="inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgb(248,66,66)";
-		div.style.backgroundImage="url(img/error.png)";
-		div.style.backgroundPosition="right";
-		div.style.backgroundRepeat="no-repeat";
+// 	// For checking the name is filled or not
+// 	if(n=="") {
+// 		var div=document.getElementById("name");
+// 		div.style.borderColor="rgb(248,66,66)";
+// 		div.style.boxShadow="inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgb(248,66,66)";
+// 		div.style.backgroundImage="url(img/error.png)";
+// 		div.style.backgroundPosition="right";
+// 		div.style.backgroundRepeat="no-repeat";
 		
-		$(document).ready(function() {
-			   $("form").effect( "shake", {times:1}, 150 );
-		});
-		error+="Please fill name<br>";
-	}
+// 		$(document).ready(function() {
+// 			   $("form").effect( "shake", {times:1}, 150 );
+// 		});
+// 		error+="Please fill name<br>";
+// 	}
 	
-	// For checking the email is filled or not	
-	if(e=="") {
-		var div1=document.getElementById("email");
-		div1.placeholder="";
-		div1.style.borderColor="rgb(248,66,66)";
-		div1.style.boxShadow="inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgb(248,66,66)";
-		div1.style.backgroundImage="url(img/error.png)";
-		div1.style.backgroundPosition="right";
-		div1.style.backgroundRepeat="no-repeat";
+// 	// For checking the email is filled or not	
+// 	if(e=="") {
+// 		var div1=document.getElementById("email");
+// 		div1.placeholder="";
+// 		div1.style.borderColor="rgb(248,66,66)";
+// 		div1.style.boxShadow="inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgb(248,66,66)";
+// 		div1.style.backgroundImage="url(img/error.png)";
+// 		div1.style.backgroundPosition="right";
+// 		div1.style.backgroundRepeat="no-repeat";
 
-		$(document).ready(function() {
-			   $("form").effect( "shake", {times:1}, 150 );
-		});
-		error+="Please fill email<br>";
-	}
+// 		$(document).ready(function() {
+// 			   $("form").effect( "shake", {times:1}, 150 );
+// 		});
+// 		error+="Please fill email<br>";
+// 	}
 
-	// For checking the contact is filled or not
-	if(m=="") {
-		var div2=document.getElementById("mob");
-		div2.placeholder="";
-		div2.style.borderColor="rgb(248,66,66)";
-		div2.style.boxShadow="inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgb(248,66,66)";
-		div2.style.backgroundImage="url(../img/error.png)";
-		div2.style.backgroundPosition="right";
-		div2.style.backgroundRepeat="no-repeat";
+// 	// For checking the contact is filled or not
+// 	if(m=="") {
+// 		var div2=document.getElementById("mob");
+// 		div2.placeholder="";
+// 		div2.style.borderColor="rgb(248,66,66)";
+// 		div2.style.boxShadow="inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgb(248,66,66)";
+// 		div2.style.backgroundImage="url(../img/error.png)";
+// 		div2.style.backgroundPosition="right";
+// 		div2.style.backgroundRepeat="no-repeat";
 
-		$(document).ready(function() {
-			   $("form").effect( "shake", {times:1}, 150 );
-		});
-		error+="Please fill mobile number<br>";
-	}
+// 		$(document).ready(function() {
+// 			   $("form").effect( "shake", {times:1}, 150 );
+// 		});
+// 		error+="Please fill mobile number<br>";
+// 	}
 	
-	// For checking the feedback is filled or not
-	if(f=="") {
-		var div3=document.getElementById("feed");
-		div3.style.borderColor="rgb(248,66,66)";
-		div3.style.boxShadow="inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgb(248,66,66)";
-		div3.style.backgroundImage="url(img/error.png)";
-		div3.style.backgroundPosition="right";
-		div3.style.backgroundRepeat="no-repeat";
+// 	// For checking the feedback is filled or not
+// 	if(f=="") {
+// 		var div3=document.getElementById("feed");
+// 		div3.style.borderColor="rgb(248,66,66)";
+// 		div3.style.boxShadow="inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgb(248,66,66)";
+// 		div3.style.backgroundImage="url(img/error.png)";
+// 		div3.style.backgroundPosition="right";
+// 		div3.style.backgroundRepeat="no-repeat";
 		
-		$(document).ready(function() {
-			   $("form").effect( "shake", {times:1}, 150 );
-		});
-		error+="Please fill feedback";
-	}
+// 		$(document).ready(function() {
+// 			   $("form").effect( "shake", {times:1}, 150 );
+// 		});
+// 		error+="Please fill feedback";
+// 	}
 	
-	// Displays the error message if any field left empty
-	if(error!="") {
-		document.getElementById("ferror").innerHTML= error;
-		var div4=document.getElementById("ferror");
-		div4.style.color="red";			 
-		return false;
-	}
-	else {
-		return true;
-	}
-}
+// 	// Displays the error message if any field left empty
+// 	if(error!="") {
+// 		document.getElementById("ferror").innerHTML= error;
+// 		var div4=document.getElementById("ferror");
+// 		div4.style.color="red";			 
+// 		return false;
+// 	}
+// 	else {
+// 		return true;
+// 	}
+// }
 
 // For validating the name field
 function checkname() {	

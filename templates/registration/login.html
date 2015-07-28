@@ -125,7 +125,7 @@
                 <a class="lclose">x</a>
                 <h3>Sign in</h3>
                 
-                <div><span id="lerror"></span></div>                
+                <div><span id="lerror"><span style="color:black">Enter your username and password</span></span></div>                
                 <form method="post" action="/login/" name="loginfrm" id="login">
                     {% csrf_token %}
                     <label for="username">
@@ -152,24 +152,24 @@
             <div class="feedback-content">
                 <a class="fclose">x</a>
                 <h3>Feedback</h3>
-                <div><span id="ferror"></span></div>
+                <!-- <div><span id="ferror"></span></div> -->
                 <form method="post" action="/feedback/" name="popfrm">
                 	{% csrf_token %}
                     <label for="name">
                         Name:
-                        <input type="text" name="name" id="name" value="" onBlur="return checkname()"/>
+                        <input type="text" name="name" id="name" value="" onBlur="return checkname()" required/>
                     </label>
                     <label for="email">
                         Email:
-                        <input type="text" name="email" id="email" value="" onBlur="return checkemail()"/>
+                        <input type="text" name="email" id="email" value="" onBlur="return checkemail()" required/>
                     </label>
                     <label for="contact">
                         Contact:
-                        <input type="text" name="mob" id="mob" value="" onBlur="return checkmob()"/>
+                        <input type="text" name="mob" id="mob" value="" onBlur="return checkmob()" required/>
                     </label>
                     <label for="feedback">
                         Feedback:
-                        <input type="text" name="feed" id="feed" value="" onBlur="return checkfeed()">
+                        <input type="text" name="feed" id="feed" value="" onBlur="return checkfeed()" required/>
                     </label>
                     <button type="submit" name="fbtn" id="fbtn" onClick="return feedback()">Submit</button>
                 </form>
