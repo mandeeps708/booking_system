@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Cancel Booking{% endblock %}
+{% block title %}Cancellation{% endblock %}
 {% block content %}
 	<div class="block-book container" style="background-color: transparent;">
-		<h1>Cancel/Rescheduling Bookings</h1>
+		<h1>Cancel Bookings</h1>
 		<br><br>
 	 	<div>
 	 		<form method="POST" action="/cancelbooking/" name="cancelform">
@@ -16,6 +16,7 @@
 				 		<th>Date</th>
 				 		<th>Start Time</th>
 				 		<th>End Time</th>
+				 		<th>Status</th>
 				 	</tr>
 				 	{% for value in cancel %}
 				 	<tr>
@@ -26,6 +27,13 @@
 				 		<td>{{ value.date }}</td>
 				 		<td>{{ value.start_time }}</td>
 				 		<td>{{ value.end_time }}</td>
+				 		<td>
+				 			{% if value.status %}
+				 				Booked
+				 			{% else %}
+				 				Waiting
+				 			{% endif %}
+				 		</td>
 					</tr>
 					{% endfor %}
 				</table>

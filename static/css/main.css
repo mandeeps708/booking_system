@@ -25,7 +25,7 @@ label {
     -o-text-overflow: ellipsis;*/
 }
 
- .round-button,.round-btn-view, .round-btn-book, .round-btn-cancel {
+ .round-button,.round-btn-view, .round-btn-book, .round-btn-cancel, .round-btn-reschedule {
     background-color: rgba(125, 204, 193, 0.78);
     border-radius: 3.5em;
     color: #FFF;
@@ -51,6 +51,7 @@ label {
     position: inherit;
     text-decoration: none;
 }
+
 .round-btn-view:hover{
     background-color: #5992D4;
     color: #FFF;
@@ -58,8 +59,17 @@ label {
     position: inherit;
     text-decoration: none;
 }
+
 .round-btn-cancel:hover{
     background-color: #F86161;
+    color: #FFF;
+    text-align: center;
+    position: inherit;
+    text-decoration: none;
+}
+
+.round-btn-reschedule:hover{
+    background-color: #839261;
     color: #FFF;
     text-align: center;
     position: inherit;
@@ -77,6 +87,7 @@ form, .centralize{
 .back-button {
     margin: 10px 10px 0 10px;
 }
+
 #buttons {
     margin-top: 10px;
     float: right;
@@ -96,6 +107,7 @@ form, .centralize{
     display: inline-block;
     position: relative;
 }
+
 .booksys:hover{
     /*color: #63B357;*/
     color: rgba(0, 0, 0, 0.80);

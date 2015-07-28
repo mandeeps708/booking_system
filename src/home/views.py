@@ -145,8 +145,8 @@ the event selected by user.
 """
 @login_required
 def cancel(request):
-	can = Booking.objects.filter(Q(date = datetime.date.today(), start_time__gte = datetime.datetime.now().\
-		strftime('%I:%M %p')) | Q(date__gt = datetime.date.today()), status=1, email=request.user.email).\
+	can = Booking.objects.filter(Q(date = datetime.date.today(), start_time__gte = datetime.datetime.now().
+		strftime('%I:%M %p')) | Q(date__gt = datetime.date.today()), email=request.user.email).\
 	order_by('-date', 'start_time')
 
 	return render(request, "home/cancel.html", {'cancel': can})
@@ -167,10 +167,18 @@ def cancelbooking(request):
 	else:
 		cancel_state = "Event not cancelled"
 		can = Booking.objects.filter(Q(date = datetime.date.today(), start_time__gte = datetime.datetime.now().\
-			strftime('%I:%M %p')) | Q(date__gt = datetime.date.today()), status=1, email=request.user.email).\
+			strftime('%I:%M %p')) | Q(date__gt = datetime.date.today()), email=request.user.email).\
 		order_by('-date', 'start_time')
 
 	return render_to_response('home/cancel.html', locals(), context_instance=RequestContext(request))
+
+
+"""
+For rescheduling the event i.e. changing event time to a new time.
+"""
+@login_required
+def reschedule(request):
+	return render(request, "home/reschedule.html", {})
 
 
 """
