@@ -96,19 +96,25 @@ For the installation of Requiremets listed above, run the following commands in 
 0. Edit booking_system/settings.py file. Things to be edited are:
 
     - In the 'DATABASES' section, replace the root in the 'USER' field with your mysql username and 1234 with your mysql password.These are the details those you entered in step 2 above.
+
+    - In the bottom, set your own email account to EMAIL_HOST_USER and Google App Password to EMAIL_HOST_PASSWORD. You'll be able to generate a Google App password easily after activating 2-step verification in Gmail Account.
     
+
+0. To see the project working, shoot the following commands:
+>```python manage.py migrate```
+
+    >```python manage.py makemigrations```
+
 
 0. Create a superuser for your project:
 >```python manage.py createsuperuser```
 
     Now add Username, email(optional) and password.
 
-0. To see the project working, shoot the following commands:
->```python manage.py migrate```
 
- >```python manage.py runserver 7000```
-       
-    Make sure you are in the booking_system/src directory in which the file 'manage.py' exists.
+0. Make sure you are in the booking_system/src directory in which the file 'manage.py' exists.
+>```python manage.py runserver 7000```
+
 
 0. Now open your web browser with the address:
 

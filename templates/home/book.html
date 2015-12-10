@@ -2,16 +2,18 @@
 {% block title %}Book Hall{% endblock %}
 {% load staticfiles %}
 {% block extrastyle %}
-	<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui.css" type="text/css">
+<!-- 	<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui.css" type="text/css">
     <script src="{{ STATIC_URL }}js/jquery-1.10.2.js"></script>
     <script src="{{ STATIC_URL }}js/jquery-ui.js"></script>
-
+ -->
     <script type=text/javascript>
 		$(function() {
 			$( "#id_date" ).datepicker({
-				changeMonth: true, //this option for allowing user to select month
-				changeYear:  true, //this option for allowing user to select from year range
-	            dateFormat: 'yy-mm-dd'
+				// changeMonth: true, //this option for allowing user to select month
+				// changeYear:  true, //this option for allowing user to select from year range
+	            dateFormat: 'yy-mm-dd',
+	            minDate: 0,
+	            maxDate: "+3M"
 			});
 		});
 
@@ -27,8 +29,17 @@
 				'minTime': '8:00am',
 				'maxTime': '5:00pm',
 				'timeFormat': 'h:i A',
-				'showPeriodLabels': false,
-	            'showNowButton': true
+				'step': 30
+			});
+		});
+
+
+		$(function() {
+			$( "#id_end_time" ).timepicker({
+				'minTime': '8:30am',
+				'maxTime': '6:00pm',
+				'timeFormat': 'h:i A',
+				'step': 30
 			});
 		});
 
@@ -36,7 +47,7 @@
 {% endblock %}
 
 {% block content %}
-	<div class="block-book" style="background-color: transparent;">
+	<div class="block-book container" style="background-color: transparent;">
 		<h1>Book Hall</h1>
 		<form method="POST" action=""> {% csrf_token %}
 			{{ form.as_p }}
