@@ -1,27 +1,22 @@
+from django.core.exceptions import ValidationError
+from django.contrib.admin import widgets
 from django import forms
-# from django.forms import ModelForm
-# from .models import *
-# from django.contrib.admin.widgets import AdminDateWidget 
 from .models import Booking
-from django.contrib.admin import widgets  
-from django.forms.extras.widgets import SelectDateWidget
-
-
-a = ('2015', '2016', '2017')
-
+import datetime
 
 class BookingForm(forms.ModelForm):
-	#date = forms.DateField(widget=SelectDateWidget(years=a))
-
+	# This connects the 'Booking' model with this form and shows the specified fields on the html.
 	class Meta:
 		model = Booking 
-		fields = ["hall", "date", "start_time", "end_time", "event_name", "name", "email"]
-	# hall = forms.CharField()
-	# hall = forms.CharField()
-	# email = forms.EmailField()
-	# date = forms.DateField()
+		fields = ["hall", "date", "start_time", "no_of_hours", "event_name", "name", "email"]
 
-	# date = forms.DateField(widget = AdminDateWidget)
+	# With the help of the AdminDateWidget, a calender for the date input can be used.
+	date = forms.DateField(widget=widgets.AdminDateWidget)
+	
+	def clean_date(self):
+		date = self.cleaned_data['date']
 
-# class select(forms.Form):
-#     hall = forms.ModelChoiceField(queryset=hall.objects.all().order_by('name'))
+		if date < datetime.date.today():
+			raise forms.ValidationError("Must be a future date")
+		return date
+
