@@ -1,6 +1,8 @@
 #Booking System
 
-Booking System is a web application under development using Django framework.
+Booking System is a web application based on Django framework and can be used to book different halls.
+
+*Note*: See branch ['gd'](https://github.com/GreatDevelopers/booking_system/tree/gd) for updated code.
 
 Table of Contents
 -
@@ -120,18 +122,27 @@ If you find any problem at any step of the installation, feel free to email us a
 
 #<a name="team"></a>Team Members
 
+
+##Mentor
  
+Dr. Hardeep Singh Rai
+
+Website: http://gndec.ac.in/~hsrai
+
+-
+
+##Developers
 
 Mandeep Singh 
--
- >Contact: <mandeeps708@gmail.com>
+
+> Contact: <mandeeps708@gmail.com>
   
  >Blog: [http://mandeep7.wordpress.com](http://mandeep7.wordpress.com) 
 
 ![Listforks](https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAACuAAAAJDE0MDZiY2QyLWQ5NjgtNDI3Ni05ZWJiLWU3NjA3MmU0ZjBlMg.jpg) 
 
 Ramandeep Singh
--
+
 > Contact: <ramanvirdiz@gmail.com>
 
  >Blog: [http://ramanvirdiz.wordpress.com](http://ramanvirdiz.wordpress.com)
